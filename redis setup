@@ -1,0 +1,32 @@
+1.Instalaltion of redis on ubuntu
+sudo apt update
+sudo apt upgrade -y
+sudo apt install redis-server -y
+sudo systemctl enable redis
+sudo systemctl start redis
+sudo systemctl status redis
+
+2.setting up credentials for redis(Password):
+redis-cli
+config get requirepass
+config set requirepass <password> #to set password for redis
+then exit (ctrl+c)
+redis-cli
+auth <password>  #authenticating using password
+config get requirepass
+
+
+ 1. Temporarily remove password (runtime only)
+redis-cli
+CONFIG SET requirepass ""
+(⚠️ This disables password until Redis is restarted.)
+
+
+🛠️ 2. Permanently remove password (in config file)
+sudo vim /etc/redis/redis.conf
+
+Find this line: requirepass your_existing_password
+Change it to: # requirepass your_existing_password
+
+🔁 3. Restart Redis
+sudo systemctl restart redis
